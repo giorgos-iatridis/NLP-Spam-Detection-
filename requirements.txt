@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+spacy
+xgboost
+gensim
+matplotlib
+seaborn
+ydata-profiling
+wordcloud
+imbalanced-learn
+joblib
+openpyxl
