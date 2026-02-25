@@ -1,81 +1,83 @@
-ΠΕΡΙΓΡΑΦΗ
----------
-Ο παρών φάκελος περιέχει τον πηγαίο κώδικα, τα δεδομένα και τα εκπαιδευμένα μοντέλα
-που αναπτύχθηκαν στο πλαίσιο της εργασίας.
+DESCRIPTION
+-----------
+This folder contains the source code, data, and trained models developed 
+within the framework of this project.
 
-ΔΟΜΗ ΦΑΚΕΛΟΥ (DIRECTORY STRUCTURE)
-----------------------------------
+DIRECTORY STRUCTURE
+-------------------
 .
 ├── dataset/
-│   ├── raw/                   # Αρχικά, ακατέργαστα δεδομένα (CEAS, Nazario, κτλ.)
-│   └── preprocessed/          # Επεξεργασμένα δεδομένα (emails_train.csv, emails_test.csv)
+│   ├── raw/                  # Original, raw data (CEAS, Nazario, etc.)
+│   └── preprocessed/          # Processed data (emails_train.csv, emails_test.csv)
 │
 ├── Google/
-│   └── GoogleNews-vectors...  # Προ-εκπαιδευμένο μοντέλο Word2Vec (αρχείο .bin.gz)
-			      # Δεν περιέχεται για λόγους χωρητικότητας (βλ. Οδηγίες Εγκατάστασης)
+│   └── GoogleNews-vectors...  # Pre-trained Word2Vec model (.bin.gz file)
+                               # Not included due to file size (see Installation Instructions)
 │
-├── saved_models/              # Φάκελος αποθήκευσης των μοντέλων (.joblib / .json)
+├── saved_models/              # Folder for storing models (.joblib / .json)
 │
-├── 0_ETL.py                   # Κώδικας καθαρισμού και προεπεξεργασίας (Extract-Transform-Load)
-├── 1_EDA.ipynb                # Jupyter Notebook για Εξερευνητική Ανάλυση Δεδομένων
-├── 2_lgr.py                   # Logistic Regression - TF-IDF, αρχικός κώδικας για παραμετροποίηση
-├── 3_best_LgR.py              # Εκπαίδευση & Αξιολόγηση βέλτιστου Logistic Regression
+├── 0_ETL.py                   # Cleaning and preprocessing code (Extract-Transform-Load)
+├── 1_EDA.ipynb                # Jupyter Notebook for Exploratory Data Analysis
+├── 2_lgr.py                   # Logistic Regression - TF-IDF, initial code for tuning
+├── 3_best_LgR.py              # Training & Evaluation of the optimal Logistic Regression
 ├── 4_xgboost.py               # XGBoost - Word2Vec
-├── 5_best_xgb.py              # Εκπαίδευση & Αξιολόγηση βέλτιστου XGBoost
-├── 6_metrics.ipynb            # Jupyter Notebook για τελική σύγκριση
-├── config.py                  # Αρχείο ρυθμίσεων (paths, stopwords, κτλ.)
-├── requirements.txt           # Λίστα απαιτούμενων βιβλιοθηκών Python
-└── README.txt                 # Το παρόν αρχείο οδηγιών
+├── 5_best_xgb.py              # Training & Evaluation of the optimal XGBoost
+├── 6_metrics.ipynb            # Jupyter Notebook for final comparison
+├── config.py                  # Configuration file (paths, stopwords, etc.)
+├── requirements.txt           # List of required Python libraries
+└── README.txt                 # This instruction file
 
 
-ΕΓΚΑΤΑΣΤΑΣΗ & ΑΠΑΙΤΗΣΕΙΣ (INSTALLATION)
----------------------------------------
-1. Συνιστάται η δημιουργία ενός εικονικού περιβάλλοντος (virtual environment).
-2. Εγκατάσταση των βιβλιοθηκών:
+INSTALLATION & REQUIREMENTS
+---------------------------
+1. The use of a virtual environment is recommended.
+2. Install the libraries:
    pip install -r requirements.txt
 
-3. Λήψη του γλωσσικού μοντέλου της βιβλιοθήκης spaCy:
+3. Download the spaCy language model:
    python -m spacy download en_core_web_sm
 
 4. Google Word2Vec:
-   Λήψη του αρχείου GoogleNews-vectors-negative300.bin.gz δηλαδή του προ-εκπαιδευμένου μοντέλου της Google από τον σύνδεσμο:
+   Download the GoogleNews-vectors-negative300.bin.gz file (Google's pre-trained model) 
+   from the following link:
 
    https://github.com/mmihaltz/word2vec-GoogleNews-vectors
    
-   και τοποθέτησή του στον φάκελο "google". Η εφαρμογή διαβάζει απευθείας το συμπιεσμένο αρχείο, οπότε δεν απαιτείται αποσυμπίεση.
+   and place it in the "Google" folder. The application reads the compressed file 
+   directly, so decompression is not required.
 
 
-ΟΔΗΓΙΕΣ ΕΚΤΕΛΕΣΗΣ (EXECUTION ORDER)
------------------------------------
-Τα αρχεία πρέπει να εκτελεστούν με την ακόλουθη σειρά για την αναπαραγωγή των αποτελεσμάτων:
+EXECUTION ORDER
+---------------
+The files must be executed in the following order to reproduce the results:
 
-ΒΗΜΑ 1: Προεπεξεργασία
-   Τρέξτε το `0_ETL.py`. (Χρόνος εκτέλεσης ~24 λεπτά, αναλόγως το λειτουργικό σύστημα)
-   - Διαβάζει τα raw δεδομένα.
-   - Εκτελεί καθαρισμό, NLP processing και split.
-   - Αποθηκεύει τα `emails_train.csv` και `emails_test.csv` στο φάκελο `dataset/preprocessed/`.
+STEP 1: Preprocessing
+   Run `0_ETL.py`. (Execution time ~24 minutes, depending on the OS)
+   - Reads the raw data.
+   - Performs cleaning, NLP processing, and split.
+   - Saves `emails_train.csv` and `emails_test.csv` in the `dataset/preprocessed/` folder.
 
-ΒΗΜΑ 2: Εξερευνητική Ανάλυση (Προαιρετικό)
-   Ανοίξτε και τρέξτε το `1_EDA.ipynb` για να δείτε τα γραφήματα και τα στατιστικά
-   που περιγράφονται στην εργασία.
+STEP 2: Exploratory Analysis (Optional)
+   Open and run `1_EDA.ipynb` to view the charts and statistics 
+   described in the project.
 
-ΒΗΜΑ 3: Εκπαίδευση Μοντέλων
+STEP 3: Model Training
    
    A. LOGISTIC REGRESSION:
-      - `2_lgr.py`: Εκτελεί GridSearch για εύρεση παραμέτρων (χρόνος εκτέλεσης ~1 λεπτό).
-      - `3_best_LgR.py`: Εκπαιδεύει το βέλτιστο μοντέλο άμεσα και εμφανίζει τα αποτελέσματα.
-        (Συνιστάται η εκτέλεση του `3_best_LgR.py` για γρήγορη επιβεβαίωση, χρόνος εκτέλεσης ~20 δευτερόλεπτα).
+      - `2_lgr.py`: Performs GridSearch to find parameters (execution time ~1 minute).
+      - `3_best_LgR.py`: Trains the optimal model directly and displays the results.
+        (Execution of `3_best_LgR.py` is recommended for quick verification, execution time ~20 seconds).
 
    B. XGBOOST:
-      - `4_xgboost.py`: Εκτελεί GridSearch για το XGBoost (χρόνος εκτέλεσης ~15 λεπτά).
-      - `5_best_xgb.py`: Εκπαιδεύει το βέλτιστο XGBoost με Word2Vec και εμφανίζει τα αποτελέσματα.
-        (Συνιστάται η εκτέλεση του `5_best_xgb.py` για γρήγορη επιβεβαίωση, χρόνος εκτέλεσης περίπου 5 λεπτά).
+      - `4_xgboost.py`: Performs GridSearch for XGBoost (execution time ~15 minutes).
+      - `5_best_xgb.py`: Trains the optimal XGBoost with Word2Vec and displays the results.
+        (Execution of `5_best_xgb.py` is recommended for quick verification, execution time ~5 minutes).
 
-ΒΗΜΑ 4: Σύγκριση & Μετρικές (απαιτείται η εκτέλεση των `3_best_LgR.py` και `5_best_xgb.py`)
-   Ανοίξτε το `6_metrics.ipynb`.
-   - Φορτώνει τα αποθηκευμένα μοντέλα από το φάκελο `saved_models/`.
-   - Παράγει classification reports, confusion matrices, error analysis, wins/loses των μοντέλων
+STEP 4: Comparison & Metrics
+   Open `6_metrics.ipynb`.
+   - Loads the saved models from the `saved_models/` folder.
+   - Generates classification reports, confusion matrices, error analysis, and model wins/losses.
 
-ΣΗΜΕΙΩΣΕΙΣ
-----------
-- Το αρχείο `config.py` περιέχει όλες τις διαδρομές αρχείων (paths).
+NOTES
+-----
+- The `config.py` file contains all file paths.
