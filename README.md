@@ -6,6 +6,8 @@ The project compares a traditional machine learning approach (TF-IDF + Logistic 
 
 ## 📂 Repository Structure
 
+**It's very important to recreate the exact stracture that I present in `execution_details.txt` file. Without this format, the paths in the `config.py` are not going to work.**
+
 The codebase is organized sequentially to reflect the machine learning lifecycle:
 
 * **`0_ETL.py`**: Data extraction, text cleaning, tokenization, and preprocessing.
@@ -16,7 +18,7 @@ The codebase is organized sequentially to reflect the machine learning lifecycle
 * **`5_best_xgb.py`**: Hyperparameter tuning for the XGBoost model.
 * **`6_metrics.ipynb`**: Final evaluation notebook comparing the models across key metrics (Accuracy, Precision, Recall, F1-Score, ROC-AUC).
 * **`spam_detection.pdf`**: Detailed project report documenting the methodology, decisions, and final results.
-* **`README.txt`**: Additional execution instructions.
+* **`execution_details.txt`**: Additional execution instructions.
 
 ## 🛠️ Tech Stack & Tools
 * **Language:** Python
